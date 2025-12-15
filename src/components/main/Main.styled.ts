@@ -6,6 +6,7 @@ export const AppMain = styled.main`
   max-width: 400px;
   justify-items: center;
   margin: 0 auto;
+  position: relative;
 flex: 1;
 
   /* background-color: red; */
@@ -20,6 +21,8 @@ flex: 1;
   @media screen and (min-width: 992px) {
     flex-direction: row;
     max-width: 800px;
+  bottom: 40px !important;
+
   }
 
   @media screen and (min-width: 1200px) {

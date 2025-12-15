@@ -28,6 +28,8 @@ type CardType = "classico" | "minimalista" | "engracado";
 function Main() {
   const [text, setText] = useState("Feliz Natal!");
   const [sectionCard, setSectionCard] = useState<CardType>("classico");
+  const [changeBackgroundColor, setChangeBackgroundColor] = useState("#9C3227");
+  const [changeTextColor, setChangeTextColor] = useState("#F3B950");
   const [snowDots, setSnowDots] = useState(generateSnowDots());
 
   function generateSnowDots(amount = 60) {
@@ -42,12 +44,12 @@ function Main() {
     setSectionCard(cardType);
   }
 
+
   const cards: CardType[] = ["classico", "minimalista", "engracado"];
 
   return (
     <AppMain>
       <MainContentDisplay>
-    
         <MainHeader>
           {cards.map((card) => (
             <p
@@ -64,16 +66,23 @@ function Main() {
           ))}
         </MainHeader>
 
- 
         <ColorsButton>
           <BackgroundColorDisplay>
             <p>Cor do Fundo</p>
-            <input type="color" value="#9C3227" />
+            <input
+              type="color"
+              value={changeBackgroundColor}
+              onChange={(e) => setChangeBackgroundColor(e.target.value)}
+            />
           </BackgroundColorDisplay>
 
           <TextColorDisplay>
             <p>Cor do Texto</p>
-            <input type="color" value="#F3B950" />
+            <input
+              type="color"
+              value={changeTextColor}
+              onChange={(e) => setChangeTextColor(e.target.value)}
+            />
           </TextColorDisplay>
         </ColorsButton>
 
@@ -138,7 +147,6 @@ function Main() {
         </IconsDisplay>
       </MainContentDisplay>
 
-     
       <MainContentPreview>
         {sectionCard === "classico" && (
           <ClassicCard>
