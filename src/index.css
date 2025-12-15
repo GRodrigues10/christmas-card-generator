@@ -1,5 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body{
+  background-color: #FBF2E3;
+}
+
+@font-face {
+  font-family: 'ClassicFont';
+  src: url('/RetroChrista.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MinimalFont';
+  src: url('/public/ChristmasCome.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'FunnyFont';
+  src: url('/public/MerryXmas.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
