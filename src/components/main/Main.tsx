@@ -22,15 +22,47 @@ import snowman from "../../assets/snowman.png";
 import star from "../../assets/star.png";
 import reindeer from "../../assets/reindeer.png";
 import { useState } from "react";
+import { useFontSize } from "../../hooks/usefontSize";
+import { useFont } from "../../hooks/useFontFamily";
 
-type CardType = "classico" | "minimalista" | "engracado";
+export type CardType = "classico" | "minimalista" | "engracado";
+
+export type FontFamily =
+  | "ClassicFont"
+  | "MinimalFont"
+  | "FunnyFont"
+  | "serif"
+  | "sans-serif"
+  | "monospace"
+  | "cursive"
+  | "fantasy"
+  | "Verdana"
+  | "Georgia"
+  | "Courier New";
+
+type CSSVars = React.CSSProperties & {
+  "--bg-color"?: string;
+  "--text-color"?: string;
+  "--font-size"?: string;
+  "--font-family"?: string;
+};
 
 function Main() {
-  const [text, setText] = useState("Feliz Natal!");
+  const [text, setText] = useState("Feliz Natal");
   const [sectionCard, setSectionCard] = useState<CardType>("classico");
-  const [changeBackgroundColor, setChangeBackgroundColor] = useState("#9C3227");
+  const [changeBackgroundColor, setChangeBackgroundColor] = useState("#8B0000");
   const [changeTextColor, setChangeTextColor] = useState("#F3B950");
   const [snowDots, setSnowDots] = useState(generateSnowDots());
+  const { fontSize, changeFontSize } = useFontSize(36);
+
+  const { font, changeFontByCard, changeFontManually } = useFont(sectionCard);
+
+  const cardStyle: CSSVars = {
+    "--bg-color": changeBackgroundColor,
+    "--text-color": changeTextColor,
+    "--font-size": `${fontSize}px`,
+    "--font-family": font,
+  };
 
   function generateSnowDots(amount = 60) {
     return Array.from({ length: amount }).map(() => ({
@@ -42,8 +74,8 @@ function Main() {
 
   function changeSection(cardType: CardType) {
     setSectionCard(cardType);
+    changeFontByCard(cardType);
   }
-
 
   const cards: CardType[] = ["classico", "minimalista", "engracado"];
 
@@ -71,7 +103,7 @@ function Main() {
             <p>Cor do Fundo</p>
             <input
               type="color"
-              value={changeBackgroundColor}
+              defaultValue={changeBackgroundColor}
               onChange={(e) => setChangeBackgroundColor(e.target.value)}
             />
           </BackgroundColorDisplay>
@@ -80,7 +112,7 @@ function Main() {
             <p>Cor do Texto</p>
             <input
               type="color"
-              value={changeTextColor}
+              defaultValue={changeTextColor}
               onChange={(e) => setChangeTextColor(e.target.value)}
             />
           </TextColorDisplay>
@@ -99,27 +131,43 @@ function Main() {
         <FontDisplay>
           <FontTypeDisplay>
             <p>Fonte</p>
-            <select>
-              <option value="Poppins">Poppins</option>
-              <option value="Roboto">Roboto</option>
-              <option value="Montserrat">Montserrat</option>
-              <option value="Playfair Display">Playfair Display</option>
-              <option value="Lobster">Lobster</option>
-              <option value="Pacifico">Pacifico</option>
-              <option value="Dancing Script">Dancing Script</option>
+            <select
+              value={font}
+              onChange={(e) => changeFontManually(e.target.value as FontFamily)}
+            >
+              <option value="ClassicFont">Clássica</option>
+              <option value="MinimalFont">Minimalista</option>
+              <option value="FunnyFont">Engraçada</option>
+              <option value="serif">Serif</option>
+              <option value="sans-serif">Sans-Serif</option>
+              <option value="cursive">Cursive</option>
+              <option value="monospace">Monospace</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="Verdana">Verdana</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Courier New">Courier New</option>
             </select>
           </FontTypeDisplay>
 
           <FontSizeDisplay>
             <p>Tamanho</p>
-            <select>
-              <option value="16">16</option>
-              <option value="18">18</option>
-              <option value="20">20</option>
-              <option value="22">22</option>
-              <option value="24">24</option>
-              <option value="26">26</option>
-              <option value="28">28</option>
+            <select
+              value={fontSize}
+              onChange={(e) => changeFontSize(Number(e.target.value))}
+            >
+              <option value={16}>16</option>
+              <option value={18}>18</option>
+              <option value={20}>20</option>
+              <option value={22}>22</option>
+              <option value={24}>24</option>
+              <option value={26}>26</option>
+              <option value={28}>28</option>
+              <option value={30}>30</option>
+              <option value={32}>32</option>
+              <option value={34}>34</option>
+              <option value={36}>36</option>
+              <option value={38}>38</option>
+              <option value={40}>40</option>
             </select>
           </FontSizeDisplay>
         </FontDisplay>
@@ -142,14 +190,14 @@ function Main() {
           </ImgDisplay>
 
           <button onClick={() => setSnowDots(generateSnowDots())}>
-            Refazer Neve
+            Recriar Neve
           </button>
         </IconsDisplay>
       </MainContentDisplay>
 
       <MainContentPreview>
         {sectionCard === "classico" && (
-          <ClassicCard>
+          <ClassicCard style={cardStyle}>
             <div className="img">
               <div className="snow">
                 {snowDots.map((dot, i) => (
@@ -169,7 +217,7 @@ function Main() {
         )}
 
         {sectionCard === "minimalista" && (
-          <MinimalCard>
+          <MinimalCard style={cardStyle}>
             <div className="img">
               <h2>{text}</h2>
             </div>
@@ -177,8 +225,9 @@ function Main() {
         )}
 
         {sectionCard === "engracado" && (
-          <FunnyCard>
+          <FunnyCard style={cardStyle}>
             <div className="img">
+              <img src={reindeer} alt="Imagem de Rena de Natal" />
               <h2>{text}</h2>
             </div>
           </FunnyCard>

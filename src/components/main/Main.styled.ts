@@ -1,5 +1,8 @@
 import styled from "styled-components";
-
+// interface Colors{
+//   bgColor:string,
+//   textColor: string
+// }
 export const AppMain = styled.main`
   width: 100%;
   height: 450px;
@@ -7,7 +10,7 @@ export const AppMain = styled.main`
   justify-items: center;
   margin: 0 auto;
   position: relative;
-flex: 1;
+  flex: 1;
 
   /* background-color: red; */
   display: flex;
@@ -21,13 +24,12 @@ flex: 1;
   @media screen and (min-width: 992px) {
     flex-direction: row;
     max-width: 800px;
-  bottom: 40px !important;
-
+    bottom: 40px !important;
   }
 
   @media screen and (min-width: 1200px) {
-      position: relative;
-  bottom: 30px;
+    position: relative;
+    bottom: 30px;
   }
 `;
 
@@ -45,35 +47,33 @@ export const MainContentDisplay = styled.div`
 `;
 
 export const MainHeader = styled.div`
-
   display: flex;
   justify-content: space-between;
   width: 100%;
 
-p {
-  border: 1px solid rgba(110, 43, 32, 0.4);
-  padding: 8px;
-  font-size: 1rem;
-  min-width: 80px;
-  text-align: center;
-  border-radius: 5px;
-  color: ${({ theme }) => theme.colors.text};
-  font-family: ${({ theme }) => theme.fonts.text};
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.4s ease;
+  p {
+    border: 1px solid rgba(110, 43, 32, 0.4);
+    padding: 8px;
+    font-size: 1rem;
+    min-width: 80px;
+    text-align: center;
+    border-radius: 5px;
+    color: ${({ theme }) => theme.colors.text};
+    font-family: ${({ theme }) => theme.fonts.text};
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s ease;
 
-  &.active {
-    background-color: darkred;
-    color: white;
-  }
+    &.active {
+      background-color: darkred;
+      color: white;
+    }
 
-  /* &:hover {
+    /* &:hover {
     background-color: ${({ theme }) => theme.colors.text};
     color: white;
   } */
-}
-
+  }
 
   @media screen and (min-width: 530px) {
   }
@@ -287,38 +287,39 @@ export const MainContentPreview = styled.div`
 `;
 
 export const ClassicCard = styled.div`
-/* display: none; */
+  /* display: none; */
   border-radius: 8px;
   height: 320px;
   width: 100%;
   position: relative;
   bottom: 5px;
-  background-color: darkred;
+  /* background-color: darkred; */
+  background-color: var(--bg-color);
   max-width: 400px;
 
   .img {
     width: 100%;
     height: 100%;
-    border: 8px solid #cfaf6a;
+    border: 8px solid var(--text-color);
     border-radius: 5px;
     display: flex;
-    flex-direction: column;      
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;          
+    text-align: center;
     position: relative;
 
     h2 {
-      font-family: "ClassicFont", sans-serif;
-      color: #ffffff;
+        font-family: var(--font-family, sans-serif);
+      color: var(--text-color);
       letter-spacing: 1px;
       font-weight: bold;
-      font-size: 2rem;
+       font-size: var(--font-size);
 
       word-wrap: break-word;
       overflow-wrap: break-word;
       white-space: normal;
-      width: 90%;           /* limite de largura para quebrar linha */
+      width: 90%; /* limite de largura para quebrar linha */
       max-width: 100%;
     }
 
@@ -345,11 +346,10 @@ export const ClassicCard = styled.div`
       border-radius: 50%;
     }
   }
-    @media screen and (min-width: 992px) {
-      max-width: 360px;
+  @media screen and (min-width: 992px) {
+    max-width: 360px;
   }
 `;
-
 
 export const MinimalCard = styled.div`
   /* display: none; */
@@ -360,7 +360,7 @@ export const MinimalCard = styled.div`
   position: relative;
   bottom: 5px;
 
-  background-color: darkred;
+  background-color: var(--bg-color);
   .img {
     width: 100%;
     height: 100%;
@@ -372,79 +372,12 @@ export const MinimalCard = styled.div`
     position: relative;
 
     h2 {
-      font-family: Arial, Helvetica, sans-serif;
-      color: #ffffff;
+      font-family: var(--font-family, sans-serif);
+
+      color: var(--text-color);
       letter-spacing: 1px;
       font-weight: bold;
-      font-size: 2.5rem;
-            word-wrap: break-word;
-      overflow-wrap: break-word;
-      white-space: normal;
-      text-align: center;
-
-      width: 90%; /* limite de largura para quebras */
-      max-width: 100%; /* nunca ultrapasse a div pai */
-    }
-
-    img {
-      height: 40px;
-      align-self: flex-start;
-      justify-items: center;
-      position: absolute;
-      top: 10px;
-      left: 0;
-    }
-
-    .snow {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      padding: 30px;
-    }
-
-    .snow span {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: white;
-      border-radius: 50%;
-      top: random;
-      left: random;
-    }
-  }
-    @media screen and (min-width: 992px) {
-      max-width: 360px;
-  }
-`;
-
-export const FunnyCard = styled.div`
-  /* display: none; */
-
-  border-radius: 8px;
-  height: 320px;
-  width: 100%;
-  max-width: 400px;
-  position: relative;
-  bottom: 5px;
-
-  background: #aeefff;
-  .img {
-    width: 100%;
-    height: 100%;
-    border: 5px dashed #00b1f1ff;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-
-    h2 {
-      font-family: "FunnyFont";
-      color: #143f6bff;
-      letter-spacing: 1px;
-      font-weight: bold;
-      font-size: 2rem;
-
+       font-size: var(--font-size);
       word-wrap: break-word;
       overflow-wrap: break-word;
       white-space: normal;
@@ -480,8 +413,78 @@ export const FunnyCard = styled.div`
       left: random;
     }
   }
+  @media screen and (min-width: 992px) {
+    max-width: 360px;
+  }
+`;
+
+export const FunnyCard = styled.div`
+  /* display: none; */
+
+  border-radius: 8px;
+  height: 320px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  bottom: 5px;
+
+  /* background: #aeefff; */
+    background-color: var(--bg-color);
+  .img {
+    width: 100%;
+    height: 100%;
+    border: 5px dashed var(--text-color);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    h2 {
+              font-family: var(--font-family, sans-serif);
+
+      color: var(--text-color);
+      letter-spacing: 1px;
+      font-weight: bold;
+      font-size: var(--font-size);
+
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      text-align: center;
+
+      width: 90%; /* limite de largura para quebras */
+      max-width: 100%; /* nunca ultrapasse a div pai */
+    }
+
+    img {
+      height: 70px;
+      align-self: flex-start;
+      justify-items: center;
+      position: absolute;
+      top: 30px;
+    
+    }
+
+    .snow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      padding: 30px;
+    }
+
+    .snow span {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      top: random;
+      left: random;
+    }
+  }
 
   @media screen and (min-width: 992px) {
-      max-width: 360px;
+    max-width: 360px;
   }
 `;
