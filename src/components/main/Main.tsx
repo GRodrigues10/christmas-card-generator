@@ -22,13 +22,14 @@ import snowman from "../../assets/snowman.png";
 import star from "../../assets/star.png";
 import reindeer from "../../assets/reindeer.png";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useFontSize } from "../../hooks/usefontSize";
 import { useFont } from "../../hooks/useFontFamily";
 
 import { DndContext } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { DraggableImage } from "../DragabbleImage/DragabbleImage";
+import * as htmlToImage from "html-to-image";
 
 export type CardType = "classico" | "minimalista" | "engracado";
 
@@ -69,6 +70,7 @@ function Main() {
   const { font, changeFontByCard, changeFontManually } = useFont(sectionCard);
 
   const [christmasImgs, setChristmasImgs] = useState<DraggableEmoji[]>([]);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const cardStyle: CSSVars = {
     "--bg-color": changeBackgroundColor,
@@ -89,10 +91,10 @@ function Main() {
     setSectionCard(cardType);
     changeFontByCard(cardType);
   }
-  
+
   function removeImg(id: string) {
-  setChristmasImgs((prev) => prev.filter((img) => img.id !== id));
-}
+    setChristmasImgs((prev) => prev.filter((img) => img.id !== id));
+  }
 
   function insertImg(src: string) {
     setChristmasImgs((prev) => [
@@ -103,6 +105,20 @@ function Main() {
         position: { x: 0, y: 0 },
       },
     ]);
+  }
+
+  function downloadCard() {
+    if (!cardRef.current) return;
+
+    htmlToImage
+      .toPng(cardRef.current, { pixelRatio: 4 })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = "cartao.png";
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => console.error("Erro ao gerar imagem:", err));
   }
 
   const cards: CardType[] = ["classico", "minimalista", "engracado"];
@@ -185,9 +201,13 @@ function Main() {
               value={fontSize}
               onChange={(e) => changeFontSize(Number(e.target.value))}
             >
-              {[16,18,20,22,24,26,28,30,32,34,36,38,40].map((size) => (
-                <option key={size} value={size}>{size}</option>
-              ))}
+              {[16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40].map(
+                (size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                )
+              )}
             </select>
           </FontSizeDisplay>
         </FontDisplay>
@@ -213,8 +233,17 @@ function Main() {
       </MainContentDisplay>
 
       <MainContentPreview>
-        {sectionCard === "classico" && (
-          <ClassicCard style={cardStyle}>
+        {(sectionCard === "classico" && (
+          <ClassicCard
+            style={{
+              ...cardStyle,
+              boxSizing: "border-box",
+              padding: "10px",
+              overflow: "hidden", // ⚡ corta tudo que passar dos cantos
+              position: "relative", // ⚡ necessário para o DnD-kit calcular limites
+            }}
+            ref={sectionCard === "classico" ? cardRef : null}
+          >
             <div className="img">
               <div className="snow">
                 {snowDots.map((dot, i) => (
@@ -245,110 +274,125 @@ function Main() {
                 }}
               >
                 {christmasImgs.map((img) => (
-                <DraggableImage
-  key={img.id}
-  id={img.id}
-  src={img.src}
-  position={img.position}
-  onRemove={removeImg}
-/>
+                  <DraggableImage
+                    key={img.id}
+                    id={img.id}
+                    src={img.src}
+                    position={img.position}
+                    onRemove={removeImg}
+                  />
                 ))}
               </DndContext>
             </div>
           </ClassicCard>
-        )}
+        )) ||
+          (sectionCard === "minimalista" && (
+            <MinimalCard
+              style={{
+                ...cardStyle,
+                boxSizing: "border-box",
+                padding: "10px",
+                overflow: "hidden",
+                position: "relative",
+              }}
+              ref={cardRef}
+            >
+              <div className="img">
+                <div className="snow">
+                  {snowDots.map((dot, i) => (
+                    <span key={i} style={dot} />
+                  ))}
+                </div>
 
-        {sectionCard === "minimalista" && (
-          <MinimalCard style={cardStyle}>
-            <div className="img">
-              <div className="snow">
-                {snowDots.map((dot, i) => (
-                  <span key={i} style={dot} />
-                ))}
+                <h2>{text}</h2>
+
+                <DndContext
+                  modifiers={[restrictToParentElement]}
+                  onDragEnd={(event) => {
+                    const { delta, active } = event;
+
+                    setChristmasImgs((prev) =>
+                      prev.map((img) =>
+                        img.id === active.id
+                          ? {
+                              ...img,
+                              position: {
+                                x: img.position.x + delta.x,
+                                y: img.position.y + delta.y,
+                              },
+                            }
+                          : img
+                      )
+                    );
+                  }}
+                >
+                  {christmasImgs.map((img) => (
+                    <DraggableImage
+                      key={img.id}
+                      id={img.id}
+                      src={img.src}
+                      position={img.position}
+                      onRemove={removeImg}
+                    />
+                  ))}
+                </DndContext>
               </div>
+            </MinimalCard>
+          )) ||
+          (sectionCard === "engracado" && (
+            <FunnyCard
+              style={{
+                ...cardStyle,
+                boxSizing: "border-box",
+                padding: "10px",
+                overflow: "hidden",
+                position: "relative",
+              }}
+              ref={cardRef}
+            >
+              <div className="img">
+                <div className="snow">
+                  {snowDots.map((dot, i) => (
+                    <span key={i} style={dot} />
+                  ))}
+                </div>
 
-              <h2>{text}</h2>
+                <h2>{text}</h2>
 
-              <DndContext
-                modifiers={[restrictToParentElement]}
-                onDragEnd={(event) => {
-                  const { delta, active } = event;
+                <DndContext
+                  modifiers={[restrictToParentElement]}
+                  onDragEnd={(event) => {
+                    const { delta, active } = event;
 
-                  setChristmasImgs((prev) =>
-                    prev.map((img) =>
-                      img.id === active.id
-                        ? {
-                            ...img,
-                            position: {
-                              x: img.position.x + delta.x,
-                              y: img.position.y + delta.y,
-                            },
-                          }
-                        : img
-                    )
-                  );
-                }}
-              >
-                {christmasImgs.map((img) => (
-               <DraggableImage
-  key={img.id}
-  id={img.id}
-  src={img.src}
-  position={img.position}
-  onRemove={removeImg}
-/>
-                ))}
-              </DndContext>
-            </div>
-          </MinimalCard>
-        )}
-
-        {sectionCard === "engracado" && (
-          <FunnyCard style={cardStyle}>
-            <div className="img">
-              <div className="snow">
-                {snowDots.map((dot, i) => (
-                  <span key={i} style={dot} />
-                ))}
+                    setChristmasImgs((prev) =>
+                      prev.map((img) =>
+                        img.id === active.id
+                          ? {
+                              ...img,
+                              position: {
+                                x: img.position.x + delta.x,
+                                y: img.position.y + delta.y,
+                              },
+                            }
+                          : img
+                      )
+                    );
+                  }}
+                >
+                  {christmasImgs.map((img) => (
+                    <DraggableImage
+                      key={img.id}
+                      id={img.id}
+                      src={img.src}
+                      position={img.position}
+                      onRemove={removeImg}
+                    />
+                  ))}
+                </DndContext>
               </div>
-
-              <h2>{text}</h2>
-
-              <DndContext
-                modifiers={[restrictToParentElement]}
-                onDragEnd={(event) => {
-                  const { delta, active } = event;
-
-                  setChristmasImgs((prev) =>
-                    prev.map((img) =>
-                      img.id === active.id
-                        ? {
-                            ...img,
-                            position: {
-                              x: img.position.x + delta.x,
-                              y: img.position.y + delta.y,
-                            },
-                          }
-                        : img
-                    )
-                  );
-                }}
-              >
-                {christmasImgs.map((img) => (
-                <DraggableImage
-  key={img.id}
-  id={img.id}
-  src={img.src}
-  position={img.position}
-  onRemove={removeImg}
-/>
-                ))}
-              </DndContext>
-            </div>
-          </FunnyCard>
-        )}
-
-        <button>Baixar Cartão</button>
+            </FunnyCard>
+          ))}
+        <button onClick={downloadCard}>Baixar Cartão</button>
       </MainContentPreview>
     </AppMain>
   );
