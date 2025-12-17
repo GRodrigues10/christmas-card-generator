@@ -239,8 +239,8 @@ function Main() {
               ...cardStyle,
               boxSizing: "border-box",
               padding: "10px",
-              overflow: "hidden", // ⚡ corta tudo que passar dos cantos
-              position: "relative", // ⚡ necessário para o DnD-kit calcular limites
+              overflow: "hidden", 
+              position: "relative", 
             }}
             ref={sectionCard === "classico" ? cardRef : null}
           >
