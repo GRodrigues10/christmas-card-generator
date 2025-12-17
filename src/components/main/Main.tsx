@@ -21,10 +21,13 @@ import christmasTree from "../../assets/christmas-tree.png";
 import snowman from "../../assets/snowman.png";
 import star from "../../assets/star.png";
 import reindeer from "../../assets/reindeer.png";
+
 import { useState } from "react";
 import { useFontSize } from "../../hooks/usefontSize";
 import { useFont } from "../../hooks/useFontFamily";
+
 import { DndContext } from "@dnd-kit/core";
+import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { DraggableImage } from "../DragabbleImage/DragabbleImage";
 
 export type CardType = "classico" | "minimalista" | "engracado";
@@ -49,17 +52,23 @@ type CSSVars = React.CSSProperties & {
   "--font-family"?: string;
 };
 
+type DraggableEmoji = {
+  id: string;
+  src: string;
+  position: { x: number; y: number };
+};
+
 function Main() {
   const [text, setText] = useState("Feliz Natal");
   const [sectionCard, setSectionCard] = useState<CardType>("classico");
   const [changeBackgroundColor, setChangeBackgroundColor] = useState("#8B0000");
   const [changeTextColor, setChangeTextColor] = useState("#F3B950");
   const [snowDots, setSnowDots] = useState(generateSnowDots());
-  const { fontSize, changeFontSize } = useFontSize(36);
-  const [christmasImg, setChristmasImg] = useState("");
-  const [imgPosition, setImgPosition] = useState({ x: 0, y: 0 });
 
+  const { fontSize, changeFontSize } = useFontSize(36);
   const { font, changeFontByCard, changeFontManually } = useFont(sectionCard);
+
+  const [christmasImgs, setChristmasImgs] = useState<DraggableEmoji[]>([]);
 
   const cardStyle: CSSVars = {
     "--bg-color": changeBackgroundColor,
@@ -80,9 +89,20 @@ function Main() {
     setSectionCard(cardType);
     changeFontByCard(cardType);
   }
+  
+  function removeImg(id: string) {
+  setChristmasImgs((prev) => prev.filter((img) => img.id !== id));
+}
 
-  function insertImg(img: string) {
-    setChristmasImg(img);
+  function insertImg(src: string) {
+    setChristmasImgs((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        src,
+        position: { x: 0, y: 0 },
+      },
+    ]);
   }
 
   const cards: CardType[] = ["classico", "minimalista", "engracado"];
@@ -141,7 +161,9 @@ function Main() {
             <p>Fonte</p>
             <select
               value={font}
-              onChange={(e) => changeFontManually(e.target.value as FontFamily)}
+              onChange={(e) =>
+                changeFontManually(e.target.value as FontFamily)
+              }
             >
               <option value="ClassicFont">Clássica</option>
               <option value="MinimalFont">Minimalista</option>
@@ -163,54 +185,25 @@ function Main() {
               value={fontSize}
               onChange={(e) => changeFontSize(Number(e.target.value))}
             >
-              <option value={16}>16</option>
-              <option value={18}>18</option>
-              <option value={20}>20</option>
-              <option value={22}>22</option>
-              <option value={24}>24</option>
-              <option value={26}>26</option>
-              <option value={28}>28</option>
-              <option value={30}>30</option>
-              <option value={32}>32</option>
-              <option value={34}>34</option>
-              <option value={36}>36</option>
-              <option value={38}>38</option>
-              <option value={40}>40</option>
+              {[16,18,20,22,24,26,28,30,32,34,36,38,40].map((size) => (
+                <option key={size} value={size}>{size}</option>
+              ))}
             </select>
           </FontSizeDisplay>
         </FontDisplay>
 
         <IconsDisplay>
           <ImgDisplay>
-            <img
-              src={christmasTree}
-              alt="ícone da Árvore"
-              onClick={() => insertImg(christmasTree)}
-            />
+            <img src={christmasTree} onClick={() => insertImg(christmasTree)} />
           </ImgDisplay>
-
           <ImgDisplay>
-            <img
-              src={reindeer}
-              alt="ícone da Rena"
-              onClick={() => insertImg(reindeer)}
-            />
+            <img src={reindeer} onClick={() => insertImg(reindeer)} />
           </ImgDisplay>
-
           <ImgDisplay>
-            <img
-              src={snowman}
-              alt="Ícone do Boneco de Neve"
-              onClick={() => insertImg(snowman)}
-            />
+            <img src={snowman} onClick={() => insertImg(snowman)} />
           </ImgDisplay>
-
           <ImgDisplay>
-            <img
-              src={star}
-              alt="Ícone da Estrela"
-              onClick={() => insertImg(star)}
-            />
+            <img src={star} onClick={() => insertImg(star)} />
           </ImgDisplay>
 
           <button onClick={() => setSnowDots(generateSnowDots())}>
@@ -225,30 +218,41 @@ function Main() {
             <div className="img">
               <div className="snow">
                 {snowDots.map((dot, i) => (
-                  <span
-                    key={i}
-                    style={{
-                      top: dot.top,
-                      left: dot.left,
-                      opacity: dot.opacity,
-                    }}
-                  />
+                  <span key={i} style={dot} />
                 ))}
               </div>
-              <h2>{text}</h2>
-              <DndContext
-                onDragEnd={(event) => {
-                  const { delta } = event;
 
-                  setImgPosition((prev) => ({
-                    x: prev.x + delta.x,
-                    y: prev.y + delta.y,
-                  }));
+              <h2>{text}</h2>
+
+              <DndContext
+                modifiers={[restrictToParentElement]}
+                onDragEnd={(event) => {
+                  const { delta, active } = event;
+
+                  setChristmasImgs((prev) =>
+                    prev.map((img) =>
+                      img.id === active.id
+                        ? {
+                            ...img,
+                            position: {
+                              x: img.position.x + delta.x,
+                              y: img.position.y + delta.y,
+                            },
+                          }
+                        : img
+                    )
+                  );
                 }}
               >
-                {christmasImg && (
-                  <DraggableImage src={christmasImg} position={imgPosition} />
-                )}
+                {christmasImgs.map((img) => (
+                <DraggableImage
+  key={img.id}
+  id={img.id}
+  src={img.src}
+  position={img.position}
+  onRemove={removeImg}
+/>
+                ))}
               </DndContext>
             </div>
           </ClassicCard>
@@ -257,20 +261,43 @@ function Main() {
         {sectionCard === "minimalista" && (
           <MinimalCard style={cardStyle}>
             <div className="img">
-              <h2>{text}</h2>
-                   <DndContext
-                onDragEnd={(event) => {
-                  const { delta } = event;
+              <div className="snow">
+                {snowDots.map((dot, i) => (
+                  <span key={i} style={dot} />
+                ))}
+              </div>
 
-                  setImgPosition((prev) => ({
-                    x: prev.x + delta.x,
-                    y: prev.y + delta.y,
-                  }));
+              <h2>{text}</h2>
+
+              <DndContext
+                modifiers={[restrictToParentElement]}
+                onDragEnd={(event) => {
+                  const { delta, active } = event;
+
+                  setChristmasImgs((prev) =>
+                    prev.map((img) =>
+                      img.id === active.id
+                        ? {
+                            ...img,
+                            position: {
+                              x: img.position.x + delta.x,
+                              y: img.position.y + delta.y,
+                            },
+                          }
+                        : img
+                    )
+                  );
                 }}
               >
-                {christmasImg && (
-                  <DraggableImage src={christmasImg} position={imgPosition} />
-                )}
+                {christmasImgs.map((img) => (
+               <DraggableImage
+  key={img.id}
+  id={img.id}
+  src={img.src}
+  position={img.position}
+  onRemove={removeImg}
+/>
+                ))}
               </DndContext>
             </div>
           </MinimalCard>
@@ -279,21 +306,43 @@ function Main() {
         {sectionCard === "engracado" && (
           <FunnyCard style={cardStyle}>
             <div className="img">
-              <img src={reindeer} alt="Imagem de Rena de Natal" />
-              <h2>{text}</h2>
-                   <DndContext
-                onDragEnd={(event) => {
-                  const { delta } = event;
+              <div className="snow">
+                {snowDots.map((dot, i) => (
+                  <span key={i} style={dot} />
+                ))}
+              </div>
 
-                  setImgPosition((prev) => ({
-                    x: prev.x + delta.x,
-                    y: prev.y + delta.y,
-                  }));
+              <h2>{text}</h2>
+
+              <DndContext
+                modifiers={[restrictToParentElement]}
+                onDragEnd={(event) => {
+                  const { delta, active } = event;
+
+                  setChristmasImgs((prev) =>
+                    prev.map((img) =>
+                      img.id === active.id
+                        ? {
+                            ...img,
+                            position: {
+                              x: img.position.x + delta.x,
+                              y: img.position.y + delta.y,
+                            },
+                          }
+                        : img
+                    )
+                  );
                 }}
               >
-                {christmasImg && (
-                  <DraggableImage src={christmasImg} position={imgPosition} />
-                )}
+                {christmasImgs.map((img) => (
+                <DraggableImage
+  key={img.id}
+  id={img.id}
+  src={img.src}
+  position={img.position}
+  onRemove={removeImg}
+/>
+                ))}
               </DndContext>
             </div>
           </FunnyCard>
