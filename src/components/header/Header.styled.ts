@@ -16,6 +16,7 @@ export const AppHeader = styled.header`
     color: ${({ theme }) => theme.colors.title};
     font-family: ${({ theme }) => theme.fonts.title};
     font-size: 1.8rem;
+  
     max-width: 550px;
     text-align: center;
     font-weight: bold;
