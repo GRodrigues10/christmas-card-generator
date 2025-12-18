@@ -26,20 +26,20 @@ export function DraggableImage({ id, src, position, onRemove }: Props) {
     }),
     cursor: "grab",
     userSelect: "none",
+    touchAction: "none",
   };
 
   return (
-<img
-  ref={setNodeRef}
-  src={src}
-  alt="emoji natalino"
-  title="Clique duas vezes para remover o emoji"
-  style={style}
-  {...listeners}
-  {...attributes}
-  draggable={false}
-  onDoubleClick={() => onRemove(id)}
-/>
-
+    <img
+      ref={setNodeRef}
+      src={src}
+      alt="emoji natalino"
+      title="Clique duas vezes para remover o emoji"
+      style={style}
+      {...listeners}
+      {...attributes}
+      draggable={false}
+      onDoubleClick={() => onRemove(id)}
+    />
   );
 }
