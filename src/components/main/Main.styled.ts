@@ -246,16 +246,16 @@ export const ImgDisplay = styled.div`
 
 export const MainContentPreview = styled.div`
   /* background-color: red; */
-  margin-top: 30px;
-  padding-bottom: 30px;
   display: flex;
   flex-direction: column;
-  /* background-color: red; */
   width: 100%;
-  /* padding-inline:20px; */
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between; /* espaço entre o card e o botão */
+  height: 100%; /* ocupa toda a altura do AppMain */
+ 
+  align-self: center;
+  gap:20px;
+  margin-top: 30px;
 
   button {
     padding: 10px;
@@ -266,35 +266,36 @@ export const MainContentPreview = styled.div`
     background-color: ${({ theme }) => theme.colors.button};
     color: white;
     cursor: pointer;
-    position: relative;
-    top: 5px;
-    cursor: pointer;
     transition: 0.4s ease;
+
     &:hover {
       background-color: ${({ theme }) => theme.colors.text};
     }
   }
+
   @media screen and (min-width: 992px) {
     margin-top: 0;
-    padding-inline: 20px;
     padding-bottom: 0px;
+    padding-inline:20px;
   }
 `;
 
+
 export const ClassicCard = styled.div`
-  /* display: none; */
   border-radius: 8px;
-  height: 320px;
   width: 100%;
-  position: relative;
-  bottom: 5px;
-  /* background-color: darkred; */
-  background-color: var(--bg-color);
   max-width: 400px;
+  height: 320px;
+ 
+  padding:13px 10px;
+  
+  box-sizing: border-box;
+  background-color: var(--bg-color);
+ 
 
   .img {
-    width: 100%;
     height: 100%;
+    width: 100%;
     border: 8px solid var(--text-color);
     border-radius: 5px;
     display: flex;
@@ -302,20 +303,23 @@ export const ClassicCard = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    position: relative;
+    padding: 10px;
+    box-sizing: border-box;
+    height: 100%;
+    
 
     h2 {
+      width: 100%;
+      max-width: 100%;
       font-family: var(--font-family, sans-serif);
       color: var(--text-color);
       letter-spacing: 1px;
       font-weight: bold;
       font-size: var(--font-size);
-
       word-wrap: break-word;
       overflow-wrap: break-word;
       white-space: normal;
-      width: 90%;
-      max-width: 100%;
+      text-align: center; /* garante centralização do texto */
     }
 
     img {
@@ -324,6 +328,9 @@ export const ClassicCard = styled.div`
       position: absolute;
       top: 10px;
       left: 0;
+      display: block;
+      margin: 0;
+      padding: 0;
     }
 
     .snow {
@@ -348,21 +355,25 @@ export const ClassicCard = styled.div`
 
 export const MinimalCard = styled.div`
   border-radius: 8px;
-  height: 320px;
-  max-width: 400px;
   width: 100%;
-  position: relative;
-  bottom: 5px;
-
+  max-width: 400px;
+  height: 320px;
+ padding:13px 10px;
+  box-sizing: border-box;
   background-color: var(--bg-color);
+
+
   .img {
-    width: 100%;
     height: 100%;
+    width: 100%;
     border-radius: 5px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
+    text-align: center;
+
+    box-sizing: border-box;
 
     h2 {
       font-family: var(--font-family, sans-serif);
@@ -413,21 +424,33 @@ export const MinimalCard = styled.div`
 
 export const FunnyCard = styled.div`
   border-radius: 8px;
-  height: 320px;
   width: 100%;
   max-width: 400px;
-  position: relative;
-  bottom: 5px;
+  height: 320px;
+
+ padding:13px 10px;
+  
+  box-sizing: border-box;
   background-color: var(--bg-color);
+  position: relative;
+
+
   .img {
-    width: 100%;
     height: 100%;
+    width: 100%;
     border: 5px dashed var(--text-color);
     border-radius: 5px;
     display: flex;
+    
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
+    text-align: center;
+   
+  
+    box-sizing: border-box;
+  
+    
 
     h2 {
       font-family: var(--font-family, sans-serif);

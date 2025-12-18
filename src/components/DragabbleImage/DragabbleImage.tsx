@@ -27,6 +27,7 @@ export function DraggableImage({ id, src, position, onRemove }: Props) {
     cursor: "grab",
     userSelect: "none",
     touchAction: "none",
+  
   };
 
   return (

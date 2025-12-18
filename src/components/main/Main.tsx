@@ -168,7 +168,7 @@ function Main() {
             type="text"
             placeholder="Digite o texto..."
             onChange={(e) => setText(e.target.value)}
-            maxLength={30}
+            maxLength={35}
           />
         </TextDisPlay>
 
@@ -238,7 +238,7 @@ function Main() {
             style={{
               ...cardStyle,
               boxSizing: "border-box",
-              padding: "10px",
+        
               overflow: "hidden", 
               position: "relative", 
             }}
@@ -291,7 +291,7 @@ function Main() {
               style={{
                 ...cardStyle,
                 boxSizing: "border-box",
-                padding: "10px",
+          
                 overflow: "hidden",
                 position: "relative",
               }}
@@ -344,7 +344,7 @@ function Main() {
               style={{
                 ...cardStyle,
                 boxSizing: "border-box",
-                padding: "10px",
+          
                 overflow: "hidden",
                 position: "relative",
               }}
