@@ -208,7 +208,8 @@ export const IconsDisplay = styled.div`
   width: 100%;
   margin-top: 20px;
   button {
-    width: 100%;
+    flex: 1 1 auto;
+
     max-width: 192px;
     border-radius: 5px;
     border: none;
@@ -229,6 +230,8 @@ export const IconsDisplay = styled.div`
 export const ImgDisplay = styled.div`
   background-color: white;
   padding: 5px;
+
+  width: 45px;
   border: 1px solid rgba(110, 43, 32, 0.4);
   border-radius: 5px;
   transition: 0.4s ease;
