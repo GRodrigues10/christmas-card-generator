@@ -1,69 +1,86 @@
-# React + TypeScript + Vite
+# 🎄 Cartões de Natal Personalizados
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto front-end desenvolvido em **React + TypeScript**, utilizando **Vite** como ferramenta de build, onde o usuário pode **criar e personalizar cartões de Natal de forma interativa**, visual e divertida.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O objetivo do projeto é permitir a criação de cartões únicos, com diferentes estilos, cores, fontes e elementos visuais, tudo em tempo real.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ Funcionalidades
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- 🎨 **3 layouts de cartão**:
+  - Clássico
+  - Minimalista
+  - Engraçado
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- 🖌️ **Personalização completa**:
+  - Alterar cor de fundo do cartão
+  - Alterar cor do texto
+  - Escrever textos personalizados
+  - Escolher diferentes fontes
+  - Ajustar o tamanho da fonte
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 🎁 **Ícones decorativos**:
+  - Adicionar ícones natalinos ao cartão
+  - Ajustar a posição dos ícones
+  - Remover ícones com **duplo clique**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- ❄️ **Efeito de neve dinâmico**:
+  - Cada clique no botão **Recriar Neve** gera um novo padrão aleatório
+  - A neve nunca é igual, tornando cada cartão único
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 📥 **Download do cartão**:
+  - Possibilidade de baixar o cartão personalizado
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 📱 **Layout responsivo**
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- React
+- TypeScript
+- Vite
+- Styled Components
+- Hooks personalizados
+- CSS Variables
+
+---
+
+## 🧠 Conceitos Aplicados
+
+- Componentização
+- Gerenciamento de estado com hooks
+- Tipagem com TypeScript
+- Estilização dinâmica
+- Responsividade
+- Boas práticas de organização de código
+
+---
+
+## 🚀 Objetivo do Projeto
+
+Este projeto foi criado com foco em **aprendizado e portfólio**, demonstrando habilidades em desenvolvimento front-end moderno, criação de interfaces interativas e preocupação com experiência do usuário.
+
+Mesmo sendo um projeto de escopo controlado, ele simula desafios reais de personalização, estado e UI dinâmica.
+
+---
+
+## 📌 Status do Projeto
+
+✅ Em desenvolvimento / finalização
+
+Planejado:
+- Adição de testes automatizados (Jest / Testing Library)
+- Melhorias finais de UX
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por **Gabriel da Costa Rodrigues** 💻🎄
+
+---
+
+Se você curte projetos criativos, interativos e com foco em UI, esse projeto foi feito pra você ✨
