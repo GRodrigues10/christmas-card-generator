@@ -209,6 +209,7 @@ export const IconsDisplay = styled.div`
   margin-top: 20px;
   button {
     width: 100%;
+    max-width: 192px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
