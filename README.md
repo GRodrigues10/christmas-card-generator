@@ -4,7 +4,7 @@ Projeto front-end desenvolvido em **React + TypeScript**, utilizando **Vite** co
 
 O objetivo do projeto é permitir a criação de cartões únicos, com diferentes estilos, cores, fontes e elementos visuais, tudo em tempo real.
 
-**Projeto em produção:**  https://natal-app.vercel.app
+**Projeto em produção:**  https://christmas-card-generator-one.vercel.app/
 
 ---
 
