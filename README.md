@@ -2,8 +2,9 @@
 
 Projeto front-end desenvolvido em **React + TypeScript**, utilizando **Vite** como ferramenta de build, onde o usuário pode **criar e personalizar cartões de Natal de forma interativa**, visual e divertida.
 
-
 O objetivo do projeto é permitir a criação de cartões únicos, com diferentes estilos, cores, fontes e elementos visuais, tudo em tempo real.
+
+**Projeto em produção:**  https://natal-app.vercel.app
 
 ---
 
@@ -67,6 +68,12 @@ Mesmo sendo um projeto de escopo controlado, ele simula desafios reais de person
 
 ---
 
+## 🎨 Créditos
+
+- Ícones obtidos via [Flaticon](https://www.flaticon.com/)
+
+---
+
 ## 📌 Status do Projeto
 
 ✅ Em desenvolvimento / finalização
@@ -84,3 +91,21 @@ Desenvolvido por **Gabriel da Costa Rodrigues** 💻🎄
 ---
 
 Se você curte projetos criativos, interativos e com foco em UI, esse projeto foi feito pra você ✨
+
+## 🔧 Instalação
+
+Siga os passos abaixo para rodar o projeto localmente:
+
+```bash
+# Clone o repositório
+git clone https://github.com/GRodrigues10/natal-app.git
+
+# Acesse a pasta do projeto
+cd natal-app
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
+npm run dev
+```
