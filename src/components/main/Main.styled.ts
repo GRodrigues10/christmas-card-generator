@@ -30,7 +30,6 @@ export const AppMain = styled.main`
 `;
 
 export const MainContentDisplay = styled.div`
-  /* background-color: blue; */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -245,13 +244,12 @@ export const ImgDisplay = styled.div`
 `;
 
 export const MainContentPreview = styled.div`
-  /* background-color: red; */
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
-  justify-content: space-between; /* espaço entre o card e o botão */
-  height: 100%; /* ocupa toda a altura do AppMain */
+  justify-content: space-between; 
+  height: 100%; 
  
   align-self: center;
   gap:20px;
@@ -319,7 +317,7 @@ export const ClassicCard = styled.div`
       word-wrap: break-word;
       overflow-wrap: break-word;
       white-space: normal;
-      text-align: center; /* garante centralização do texto */
+      text-align: center; 
     }
 
     img {

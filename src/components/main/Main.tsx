@@ -31,7 +31,7 @@ import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { DraggableImage } from "../DragabbleImage/DragabbleImage";
 import * as htmlToImage from "html-to-image";
 
-export type CardType = "classico" | "minimalista" | "engracado";
+export type CardType = "classico" | "minimalista" | "divertido";
 
 export type FontFamily =
   | "ClassicFont"
@@ -121,7 +121,7 @@ function Main() {
       .catch((err) => console.error("Erro ao gerar imagem:", err));
   }
 
-  const cards: CardType[] = ["classico", "minimalista", "engracado"];
+  const cards: CardType[] = ["classico", "minimalista", "divertido"];
 
   return (
     <AppMain>
@@ -137,7 +137,7 @@ function Main() {
                 ? "Clássico"
                 : card === "minimalista"
                 ? "Minimalista"
-                : "Engraçado"}
+                : "Divertido"}
             </p>
           ))}
         </MainHeader>
@@ -183,7 +183,7 @@ function Main() {
             >
               <option value="ClassicFont">Clássica</option>
               <option value="MinimalFont">Minimalista</option>
-              <option value="FunnyFont">Engraçada</option>
+              <option value="FunnyFont">Divertida</option>
               <option value="serif">Serif</option>
               <option value="sans-serif">Sans-Serif</option>
               <option value="cursive">Cursive</option>
@@ -339,7 +339,7 @@ function Main() {
               </div>
             </MinimalCard>
           )) ||
-          (sectionCard === "engracado" && (
+          (sectionCard === "divertido" && (
             <FunnyCard
               style={{
                 ...cardStyle,
