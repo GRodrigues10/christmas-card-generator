@@ -36,6 +36,8 @@ export const MainContentDisplay = styled.div`
   align-items: center;
   justify-content: center;
 
+
+
   @media screen and (min-width: 992px) {
     padding-inline: 20px;
   }
@@ -45,6 +47,7 @@ export const MainHeader = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 5px;
 
   p {
     border: 1px solid rgba(110, 43, 32, 0.4);
@@ -229,7 +232,9 @@ export const IconsDisplay = styled.div`
 export const ImgDisplay = styled.div`
   background-color: white;
   padding: 5px;
-
+ display: flex;
+ align-items: center;
+ justify-content: center;
   width: 45px;
   border: 1px solid rgba(110, 43, 32, 0.4);
   border-radius: 5px;
