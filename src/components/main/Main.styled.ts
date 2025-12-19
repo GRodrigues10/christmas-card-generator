@@ -32,9 +32,11 @@ export const AppMain = styled.main`
 export const MainContentDisplay = styled.div`
   width: 100%;
   display: flex;
+  align-self: center;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+
+
 
 
 
@@ -47,7 +49,7 @@ export const MainHeader = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 5px;
+
 
   p {
     border: 1px solid rgba(110, 43, 32, 0.4);
@@ -211,7 +213,7 @@ export const IconsDisplay = styled.div`
   margin-top: 20px;
   button {
     flex: 1 1 auto;
-
+padding: 10px !important;
     max-width: 192px;
     border-radius: 5px;
     border: none;
@@ -231,7 +233,7 @@ export const IconsDisplay = styled.div`
 
 export const ImgDisplay = styled.div`
   background-color: white;
-  padding: 5px;
+padding: 5px;
  display: flex;
  align-items: center;
  justify-content: center;
@@ -251,17 +253,17 @@ export const ImgDisplay = styled.div`
 export const MainContentPreview = styled.div`
   display: flex;
   flex-direction: column;
+height: 100%;
   width: 100%;
   align-items: center;
   justify-content: space-between; 
   height: 100%; 
- 
   align-self: center;
   gap:20px;
   margin-top: 30px;
 
   button {
-    padding: 10px;
+    padding: 8px;
     font-size: 1.3rem;
     width: 100%;
     border: none;
