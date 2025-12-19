@@ -288,6 +288,7 @@ height: 100%;
 
 export const ClassicCard = styled.div`
   border-radius: 8px;
+
   width: 100%;
   max-width: 400px;
   height: 320px;

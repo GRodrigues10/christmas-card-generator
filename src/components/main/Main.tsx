@@ -107,19 +107,25 @@ function Main() {
     ]);
   }
 
-  function downloadCard() {
-    if (!cardRef.current) return;
+function downloadCard() {
+  if (!cardRef.current) return;
 
-    htmlToImage
-      .toPng(cardRef.current, { pixelRatio: 4 })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = "cartao.png";
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((err) => console.error("Erro ao gerar imagem:", err));
-  }
+  htmlToImage
+    .toPng(cardRef.current, {
+      pixelRatio: 4,
+      style: {
+        borderRadius: "0",
+      },
+    })
+    .then((dataUrl) => {
+      const link = document.createElement("a");
+      link.download = "cartao.png";
+      link.href = dataUrl;
+      link.click();
+    })
+    .catch((err) => console.error("Erro ao gerar imagem:", err));
+}
+
 
   const cards: CardType[] = ["classico", "minimalista", "divertido"];
 
