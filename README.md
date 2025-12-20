@@ -72,7 +72,7 @@ Mesmo sendo um projeto de escopo controlado, ele simula desafios reais de person
 
 Os ícones utilizados neste projeto foram obtidos via [Flaticon](https://www.flaticon.com/) e criados pelos seguintes autores:
 
-- **Bolas de Natal**: [Justicon](https://www.flaticon.com/free-icon/bauble_2286444?term=christmas+balls&page=1&position=7&origin=search&related_id=2286444)  
+- **Bola de Natal**: [Justicon](https://www.flaticon.com/free-icon/bauble_2286444?term=christmas+balls&page=1&position=7&origin=search&related_id=2286444)  
 - **Folha de Natal**: [BZZRINCANTATION](https://www.flaticon.com/free-icon/mistletoe_9120701?term=christmas+mistletoe&page=1&position=8&origin=search&related_id=9120701)  
 - **Boneco de Neve**: [Freepik](https://www.flaticon.com/free-icon/snowman_1409305?term=snowman&page=1&position=1&origin=search&related_id=1409305)  
 - **Árvore de Natal**: [Justicon](https://www.flaticon.com/free-icon/christmas-tree_2299172?term=christmas&page=1&position=4&origin=search&related_id=2299172)  
