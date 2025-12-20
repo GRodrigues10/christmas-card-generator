@@ -109,3 +109,7 @@ npm install
 # Inicie o servidor de desenvolvimento
 npm run dev
 ```
+
+## Imagem do Projeto:
+<img width="1024" height="768" alt="Imagem do Projeto" src="https://github.com/user-attachments/assets/928284c0-04b8-46c9-a102-ddd45cd61eee" />
+
